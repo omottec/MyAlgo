@@ -1,4 +1,4 @@
-package ch01;
+package ch0101;
 //import In;
 
 import com.omottec.algo.stdio.In;
@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 /**
  * Created by qinbingbing on 9/23/16.
- * javac ch01/BinarySearch.java
- * java ch01.BinarySearch ../algs4-data/tinyW.txt < ../algs4-data/tinyT.txt
+ * javac ch0101/BinarySearch.java
+ * java ch0101.BinarySearch ../algs4-data/tinyW.txt < ../algs4-data/tinyT.txt
  */
 public class BinarySearch {
     private BinarySearch() {}
@@ -32,6 +32,14 @@ public class BinarySearch {
         return -1;
     }
 
+    public static int rank(int key, int[] a, int lo, int hi) {
+        if (lo > hi) return -1;
+        int mid = lo + (hi - lo) / 2;
+        if (key < a[mid]) return rank(key, a, lo, mid - 1);
+        else if (key > a[mid]) return rank(key, a, mid + 1, hi);
+        else return mid;
+    }
+
     public static void main(String[] args) {
         In in = new In(args[0]);
         int[] whiteList = in.readAllInts();
@@ -44,4 +52,5 @@ public class BinarySearch {
                 StdOut.println(key);
         }
     }
+
 }
