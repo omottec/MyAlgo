@@ -13,5 +13,5 @@ hs_err_pid*
 
 *.iml
 *.xml
-*.class
+production/
 algs4-data/
