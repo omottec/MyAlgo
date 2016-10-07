@@ -6,10 +6,11 @@ import com.omottec.algo.stdio.StdOut;
 /**
  * Created by qinbingbing on 9/29/16.
  */
-public class TestFixedCapacityStack {
+public class TestStack {
     public static void main(String[] args) {
 //        FixedCapacityStackOfStrings s = new FixedCapacityStackOfStrings(100);
-        FixedCapacityStack<String> s = new FixedCapacityStack<String>(100);
+//        FixedCapacityStack<String> s = new FixedCapacityStack<String>(100);
+        Stack<String> s = new Stack<String>();
         String item;
         while (!StdIn.isEmpty()) {
             item = StdIn.readString();
