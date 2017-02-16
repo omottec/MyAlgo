@@ -26,6 +26,7 @@ public class Stack<T> implements Iterable<T> {
     }
 
     public T pop() {
+        if (first == null) return null;
         T item = first.item;
         first = first.next;
         n--;
