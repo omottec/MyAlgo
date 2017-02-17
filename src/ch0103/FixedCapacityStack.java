@@ -21,10 +21,12 @@ public class FixedCapacityStack<T> {
     }
 
     public void push(T item) {
+        if (n == a.length) return;
         a[n++] = item;
     }
 
     public T pop() {
+        if (n == 0) return null;
         return a[--n];
     }
 }

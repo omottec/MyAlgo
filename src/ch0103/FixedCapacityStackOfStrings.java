@@ -19,10 +19,12 @@ public class FixedCapacityStackOfStrings {
     }
 
     public void push(String item) {
+        if (n == a.length) return;
         a[n++] = item;
     }
 
     public String pop() {
+        if (n == 0) return null;
         return a[--n];
     }
 }
