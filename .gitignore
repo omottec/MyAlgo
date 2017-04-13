@@ -11,6 +11,6 @@
 hs_err_pid*
 
 *.iml
-*.xml
+.idea/
 production/
 algs4-data/
