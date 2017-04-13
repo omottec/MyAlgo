@@ -54,14 +54,14 @@ public class Quick {
 
     public static boolean isSorted(Comparable[] a) {
         int length = a.length;
-        for (int i = 1; i < a.length; i++)
+        for (int i = 1; i < length; i++)
             if (less(a[i], a[i-1])) return false;
         return true;
     }
 
     public static void main(String[] args) {
         String[] a = StdIn.readAllStrings();
-//        show(a);
+        show(a);
         try {
             assert isSorted(a) : "a is not sorted";
         } catch (AssertionError error) {
@@ -69,6 +69,6 @@ public class Quick {
         }
         sort(a);
         assert isSorted(a);
-//        show(a);
+        show(a);
     }
 }
