@@ -3,7 +3,6 @@ package std;
 import com.omottec.algo.stdio.StdDraw;
 import com.omottec.algo.stdio.StdRandom;
 
-import java.awt.*;
 import java.util.Comparator;
 
 /**
@@ -85,7 +84,6 @@ public class Point2D implements Comparable<Point2D> {
     }
 
     private static class XOrder implements Comparator<Point2D> {
-
         @Override
         public int compare(Point2D o1, Point2D o2) {
             if (o1.x < o2.x) return -1;
@@ -95,7 +93,6 @@ public class Point2D implements Comparable<Point2D> {
     }
 
     private static class YOrder implements Comparator<Point2D> {
-
         @Override
         public int compare(Point2D o1, Point2D o2) {
             if (o1.y < o2.y) return -1;
@@ -105,7 +102,6 @@ public class Point2D implements Comparable<Point2D> {
     }
 
     private static class ROrder implements Comparator<Point2D> {
-
         @Override
         public int compare(Point2D o1, Point2D o2) {
             double delta = o1.r() - o2.r();
@@ -116,7 +112,6 @@ public class Point2D implements Comparable<Point2D> {
     }
 
     private class Atan2Order implements Comparator<Point2D> {
-
         @Override
         public int compare(Point2D o1, Point2D o2) {
             double angle1 = angleTo(o1);
@@ -129,6 +124,7 @@ public class Point2D implements Comparable<Point2D> {
 
     // compare other points relative to polar angle (between 0 and 2pi) they make with this Point
     private class PolarOrder implements Comparator<Point2D> {
+        @Override
         public int compare(Point2D q1, Point2D q2) {
             double dx1 = q1.x - x;
             double dy1 = q1.y - y;
@@ -189,7 +185,6 @@ public class Point2D implements Comparable<Point2D> {
         StdDraw.line(x, y, that.x, that.y);
     }
 
-    @Override
     public int compareTo(Point2D o) {
         if (y < o.y) return -1;
         else if (y > o.y) return 1;
