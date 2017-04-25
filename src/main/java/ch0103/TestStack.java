@@ -10,14 +10,15 @@ public class TestStack {
     public static void main(String[] args) {
 //        FixedCapacityStackOfStrings s = new FixedCapacityStackOfStrings(100);
 //        FixedCapacityStack<String> s = new FixedCapacityStack<String>(100);
-        Stack<String> s = new Stack<String>();
+//        Stack<String> s = new Stack<>();
+        ResizingArrayStack<String> s = new ResizingArrayStack<>();
         String item;
         while (!StdIn.isEmpty()) {
             item = StdIn.readString();
             if (!item.equals("-"))
                 s.push(item);
             else if (!item.isEmpty())
-                StdOut.print(s.pop() + " ");
+                StdOut.println("    " + s.pop());
         }
         System.out.println("(" + s.size() + " left on stack)");
     }
