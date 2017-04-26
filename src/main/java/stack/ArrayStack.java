@@ -58,4 +58,19 @@ public class ArrayStack<T> implements Stack<T> {
             return a[--i];
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if (n == 0) {
+            sb.append("[]");
+        } else {
+            sb.append("[");
+            for (T t : this)
+                sb.append(t).append(", ");
+            sb = new StringBuilder(sb.substring(0, sb.lastIndexOf(", ")));
+            sb.append("]");
+        }
+        return sb.toString();
+    }
 }

@@ -16,13 +16,16 @@ public class StackTest extends TestCase {
         while (!StdIn.isEmpty()) {
             item = StdIn.readString();
             if (!item.isEmpty()) {
-                if ("-".equals(item))
-                    StdOut.println("    " + s.pop());
-                else
+                if ("-".equals(item)) {
+                    s.pop();
+                    StdOut.println("after pop: " + s);
+                } else {
                     s.push(item);
+                    StdOut.println("after push: " + s);
+                }
             }
         }
-        StdOut.println(s.size() + (s.isEmpty() ? " element" : " elements") + " left in stack");
+        StdOut.println("stack: " + s);
     }
 
     @Test
