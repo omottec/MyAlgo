@@ -8,18 +8,21 @@ import com.omottec.algo.stdio.StdOut;
  */
 public class QueueTest {
     public static void main(String[] args) {
-        Queue<String> q = new LinkedQueue<>();
+//        Queue<String> q = new LinkedQueue<>();
+        Queue<String> q = new ArrayQueue<>();
         String item;
         while (!StdIn.isEmpty()) {
             item = StdIn.readString();
             if (!item.isEmpty()) {
-                if ("-".equals(item)) StdOut.println("  " + q.dequeue());
-                else q.enqueue(item);
+                if ("-".equals(item)) {
+                    q.dequeue();
+                    StdOut.println("after dequeue: " + q);
+                } else {
+                    q.enqueue(item);
+                    StdOut.println("after enqueue: " + q);
+                }
             }
         }
-        if (q.size() > 1) StdOut.println(q.size() + " elements left in the queue");
-        else StdOut.println(q.size() + " element left in the queue");
-        StdOut.println("head:" + q.head());
-        StdOut.println("tail:" + q.tail());
+        StdOut.println("queue: " + q);
     }
 }

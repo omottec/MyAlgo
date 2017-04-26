@@ -1,5 +1,7 @@
 package queue;
 
+import com.omottec.algo.stdio.StdOut;
+
 import java.util.Iterator;
 
 /**
@@ -52,7 +54,7 @@ public class LinkedQueue<T> implements Queue<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new LinkedIterator();
     }
 
     private class Node {
@@ -74,5 +76,20 @@ public class LinkedQueue<T> implements Queue<T> {
             h = h.next;
             return item;
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if (n == 0) {
+            sb.append("[]");
+        } else {
+            sb.append("[");
+            for (T t : this)
+                sb.append(t).append(", ");
+            sb = new StringBuilder(sb.substring(0, sb.lastIndexOf(", ")));
+            sb.append("]");
+        }
+        return sb.toString();
     }
 }
