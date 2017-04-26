@@ -89,7 +89,7 @@ public class Queue<T> implements Iterable<T> {
         while (!StdIn.isEmpty()) {
             item = StdIn.readString();
             if (!"-".equals(item)) queue.enqueue(item);
-            else if (!queue.isEmpty()) StdOut.print(queue.dequeue() + " ");
+            else if (!queue.isEmpty()) StdOut.println(" " + queue.dequeue());
         }
         StdOut.println("(" + queue.size() + ") left on queue");
         StdOut.println(queue.head());
