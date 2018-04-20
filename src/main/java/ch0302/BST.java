@@ -180,6 +180,7 @@ public class BST<Key extends Comparable<Key>, Value> {
 
     public Iterable<Key> keys(Key lo, Key hi) {
         Queue<Key> queue = new Queue<Key>();
+        keys(root, queue, lo, hi);
         return queue;
     }
 
