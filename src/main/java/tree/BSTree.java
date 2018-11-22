@@ -1,7 +1,5 @@
 package tree;
 
-import ch0302.BST;
-
 /**
  * Created by qinbingbing on 20/11/2018.
  */
@@ -22,6 +20,11 @@ public class BSTree<T extends Comparable<T>> {
         }
     }
 
+    // 前序遍历：父左右
+    public void preOrder() {
+        preOrder(mRoot);
+    }
+
     private void preOrder(BSTNode<T> root) {
         if (root != null) {
             System.out.print(root.key + " ");
@@ -30,9 +33,9 @@ public class BSTree<T extends Comparable<T>> {
         }
     }
 
-    // 前序遍历：根左右
-    public void preOrder() {
-        preOrder(mRoot);
+    // 中序遍历：左父右
+    public void inOrder() {
+        inOrder(mRoot);
     }
 
     private void inOrder(BSTNode<T> root) {
@@ -43,9 +46,9 @@ public class BSTree<T extends Comparable<T>> {
         }
     }
 
-    // 中序遍历：左根右
-    public void inOrder() {
-        inOrder(mRoot);
+    // 后序遍历：左右父
+    public void postOrder() {
+        postOrder(mRoot);
     }
 
     private void postOrder(BSTNode<T> root) {
@@ -56,13 +59,13 @@ public class BSTree<T extends Comparable<T>> {
         }
     }
 
-    // 后序遍历：左右根
-    public void postOrder() {
-        postOrder(mRoot);
+    // 递归查找
+    public BSTNode<T> search(T key) {
+        if (key == null || mRoot == null) return null;
+        return search(mRoot, key);
     }
 
     private BSTNode<T> search(BSTNode<T> root, T key) {
-        if (root == null) return null;
         int i = key.compareTo(root.key);
         if (i < 0)
             return search(root.left, key);
@@ -72,10 +75,10 @@ public class BSTree<T extends Comparable<T>> {
             return root;
     }
 
-    // 递归查找
-    public BSTNode<T> search(T key) {
-        assert key != null;
-        return search(mRoot, key);
+    // 迭代查找
+    public BSTNode<T> iterativeSearch(T key) {
+        if (key == null || mRoot == null) return null;
+        return iterativeSearch(mRoot, key);
     }
 
     private BSTNode<T> iterativeSearch(BSTNode<T> root, T key) {
@@ -88,13 +91,16 @@ public class BSTree<T extends Comparable<T>> {
             else
                 return root;
         }
-        return root;
+        return null;
     }
 
-    // 迭代查找
-    public BSTNode<T> iterativeSearch(T key) {
-        assert key != null;
-        return iterativeSearch(mRoot, key);
+    // 最大值
+    public T max() {
+        BSTNode<T> maxNode = max(mRoot);
+        if (maxNode != null)
+            return maxNode.key;
+        else
+            return null;
     }
 
     private BSTNode<T> max(BSTNode<T> root) {
@@ -112,11 +118,11 @@ public class BSTree<T extends Comparable<T>> {
         return root;
     }
 
-    // 最大值
-    public T max() {
-        BSTNode<T> maxNode = max(mRoot);
-        if (maxNode != null)
-            return maxNode.key;
+    // 最小值
+    public T min() {
+        BSTNode<T> minNode = min(mRoot);
+        if (minNode != null)
+            return minNode.key;
         else
             return null;
     }
@@ -129,23 +135,14 @@ public class BSTree<T extends Comparable<T>> {
             return root;
     }
 
-    // 最小值
-    public T min() {
-        BSTNode<T> minNode = min(mRoot);
-        if (minNode != null)
-            return minNode.key;
-        else
-            return null;
-    }
-
     // 前驱节点：小于该节点的最大节点
     public BSTNode<T> predecessor(BSTNode<T> node) {
         if (node == null) return null;
         // tree有左节点，前驱节点为以左节点为根的子树的最大节点
         if (node.left != null) return max(node.left);
         // tree没有左节点，有两种可能
-        // tree是右节点，前驱节点是tree的父节点
         // tree是左节点，则查找tree的最低父节点且该最低父节点要有右节点
+        // tree是右节点，前驱节点是tree的父节点
         BSTNode<T> parent = node.parent;
         while (parent != null && parent.left == node) {
             node = parent;
@@ -170,13 +167,14 @@ public class BSTree<T extends Comparable<T>> {
         return parent;
     }
 
+    // 插入
     public void insert(T... keys) {
         for (T key : keys)
             insert(key);
     }
 
-    public void insert(T key) {
-        assert key != null;
+    private void insert(T key) {
+        if (key == null) return;
         BSTNode<T> node = new BSTNode<>(key, null, null, null);
         if (mRoot == null) {
             mRoot = node;
@@ -212,27 +210,25 @@ public class BSTree<T extends Comparable<T>> {
             delete(key);
     }
 
-    public void delete(T key) {
-        assert key != null;
+    private void delete(T key) {
+        if (key == null) return;
         BSTNode<T> node = search(key);
         if (node == null) return;
-        if (node.parent == null) {
-            mRoot = null;
-            insert(mRoot, node.left);
-            insert(mRoot, node.right);
-        } else {
-            if (node.parent.right == node) {
-                node.parent.right = null;
-                insert(node.parent, node.left);
-                insert(node.parent, node.right);
-                node.parent = null;
-            } else {
-                node.parent.left = null;
-                insert(node.parent, node.left);
-                insert(node.parent, node.right);
+        // node是叶节点
+        if (node.left == null && node.right == null) {
+            if (node.parent != null) {
+                if (node.parent.left == node) {
+                    node.parent.left = null;
+                } else {
+                    node.parent.right = null;
+                }
                 node.parent = null;
             }
+            return;
         }
+        // node只有一个子节点
+        
+        // node有两个子节点
     }
 
     public static void main(String[] args) {
