@@ -150,8 +150,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
         // tree有左节点，前驱节点为以左节点为根的子树的最大节点
         if (node.left != null) return recursiveMax(node.left);
         // tree没有左节点，有两种可能
-        // tree是左节点，则查找tree的最低父节点且该最低父节点要有右节点
         // tree是右节点，前驱节点是tree的父节点
+        // tree是左节点，则查找tree的最低父节点且该最低父节点要有右节点
         BinarySearchTreeNode<T> parent = node.parent;
         while (parent != null && parent.left == node) {
             node = parent;
@@ -169,7 +169,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         // tree是左节点，后继节点是tree的父节点
         // tree是右节点，后继节点是tree的最低父节点且该最低父节点有左节点
         BinarySearchTreeNode<T> parent = node.parent;
-        while (parent != null && parent.left != node) {
+        while (parent != null && parent.right == node) {
             node = parent;
             parent = parent.parent;
         }
