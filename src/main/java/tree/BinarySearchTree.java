@@ -4,15 +4,15 @@ package tree;
  * Created by qinbingbing on 20/11/2018.
  */
 public class BinarySearchTree<T extends Comparable<T>> {
-    private BSTNode<T> mRoot;
+    private BinarySearchTreeNode<T> mRoot;
 
-    public class BSTNode<T extends Comparable<T>> {
+    public class BinarySearchTreeNode<T extends Comparable<T>> {
         T key;
-        BSTNode<T> parent;
-        BSTNode<T> left;
-        BSTNode<T> right;
+        BinarySearchTreeNode<T> parent;
+        BinarySearchTreeNode<T> left;
+        BinarySearchTreeNode<T> right;
 
-        public BSTNode(T key, BSTNode<T> parent, BSTNode<T> left, BSTNode<T> right) {
+        public BinarySearchTreeNode(T key, BinarySearchTreeNode<T> parent, BinarySearchTreeNode<T> left, BinarySearchTreeNode<T> right) {
             this.key = key;
             this.parent = parent;
             this.left = left;
@@ -25,7 +25,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         preOrder(mRoot);
     }
 
-    private void preOrder(BSTNode<T> root) {
+    private void preOrder(BinarySearchTreeNode<T> root) {
         if (root == null) return;
         System.out.print(root.key + " ");
         preOrder(root.left);
@@ -37,7 +37,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         inOrder(mRoot);
     }
 
-    private void inOrder(BSTNode<T> root) {
+    private void inOrder(BinarySearchTreeNode<T> root) {
         if (root == null) return;
         inOrder(root.left);
         System.out.print(root.key + " ");
@@ -49,7 +49,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         postOrder(mRoot);
     }
 
-    private void postOrder(BSTNode<T> root) {
+    private void postOrder(BinarySearchTreeNode<T> root) {
         if (root == null) return;
         postOrder(root.left);
         postOrder(root.right);
@@ -57,12 +57,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     // 递归查找
-    public BSTNode<T> recursiveSearch(T key) {
+    public BinarySearchTreeNode<T> recursiveSearch(T key) {
         if (key == null || mRoot == null) return null;
         return recursiveSearch(mRoot, key);
     }
 
-    private BSTNode<T> recursiveSearch(BSTNode<T> root, T key) {
+    private BinarySearchTreeNode<T> recursiveSearch(BinarySearchTreeNode<T> root, T key) {
         int i = key.compareTo(root.key);
         if (i < 0)
             return recursiveSearch(root.left, key);
@@ -73,12 +73,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     // 迭代查找
-    public BSTNode<T> iterativeSearch(T key) {
+    public BinarySearchTreeNode<T> iterativeSearch(T key) {
         if (key == null || mRoot == null) return null;
         return iterativeSearch(mRoot, key);
     }
 
-    private BSTNode<T> iterativeSearch(BSTNode<T> root, T key) {
+    private BinarySearchTreeNode<T> iterativeSearch(BinarySearchTreeNode<T> root, T key) {
         while (root != null) {
             int i = key.compareTo(root.key);
             if (i < 0)
@@ -93,11 +93,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     // 最大值: 递归
     public T recursiveMax() {
-        BSTNode<T> maxNode = recursiveMax(mRoot);
+        BinarySearchTreeNode<T> maxNode = recursiveMax(mRoot);
         return maxNode == null ? null : maxNode.key;
     }
 
-    private BSTNode<T> recursiveMax(BSTNode<T> root) {
+    private BinarySearchTreeNode<T> recursiveMax(BinarySearchTreeNode<T> root) {
         if (root == null) return null;
         if (root.right != null)
             return recursiveMax(root.right);
@@ -106,11 +106,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public T iterativeMax() {
-        BSTNode<T> maxNode = iterativeMax(mRoot);
+        BinarySearchTreeNode<T> maxNode = iterativeMax(mRoot);
         return maxNode == null ? null : maxNode.key;
     }
 
-    private BSTNode<T> iterativeMax(BSTNode<T> root) {
+    private BinarySearchTreeNode<T> iterativeMax(BinarySearchTreeNode<T> root) {
         if (root == null) return null;
         while (root.right != null)
             root = root.right;
@@ -119,11 +119,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     // 最小值: 递归
     public T recursiveMin() {
-        BSTNode<T> minNode = recursiveMin(mRoot);
+        BinarySearchTreeNode<T> minNode = recursiveMin(mRoot);
         return minNode == null ? null : minNode.key;
     }
 
-    private BSTNode<T> recursiveMin(BSTNode<T> root) {
+    private BinarySearchTreeNode<T> recursiveMin(BinarySearchTreeNode<T> root) {
         if (root == null) return null;
         if (root.left != null)
             return recursiveMin(root.left);
@@ -133,11 +133,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     // 最小值：迭代
     public T iterativeMin() {
-        BSTNode<T> minNode = iterativeMin(mRoot);
+        BinarySearchTreeNode<T> minNode = iterativeMin(mRoot);
         return minNode == null ? null : minNode.key;
     }
 
-    private BSTNode<T> iterativeMin(BSTNode<T> root) {
+    private BinarySearchTreeNode<T> iterativeMin(BinarySearchTreeNode<T> root) {
         if (root == null) return null;
         while (root.left != null)
             root = root.left;
@@ -145,14 +145,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     // 前驱节点：小于该节点的最大节点
-    public BSTNode<T> predecessor(BSTNode<T> node) {
+    public BinarySearchTreeNode<T> predecessor(BinarySearchTreeNode<T> node) {
         if (node == null) return null;
         // tree有左节点，前驱节点为以左节点为根的子树的最大节点
         if (node.left != null) return recursiveMax(node.left);
         // tree没有左节点，有两种可能
         // tree是左节点，则查找tree的最低父节点且该最低父节点要有右节点
         // tree是右节点，前驱节点是tree的父节点
-        BSTNode<T> parent = node.parent;
+        BinarySearchTreeNode<T> parent = node.parent;
         while (parent != null && parent.left == node) {
             node = parent;
             parent = parent.parent;
@@ -161,14 +161,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     // 后继节点：大于该节点的最小节点
-    public BSTNode<T> successor(BSTNode<T> node) {
+    public BinarySearchTreeNode<T> successor(BinarySearchTreeNode<T> node) {
         if (node == null) return null;
         // tree有右节点，后继节点为以右节点为子树的最小节点
         if (node.right != null) return recursiveMin(node.right);
         // tree没有右节点，有两种可能
         // tree是左节点，后继节点是tree的父节点
         // tree是右节点，后继节点是tree的最低父节点且该最低父节点有左节点
-        BSTNode<T> parent = node.parent;
+        BinarySearchTreeNode<T> parent = node.parent;
         while (parent != null && parent.left != node) {
             node = parent;
             parent = parent.parent;
@@ -184,7 +184,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     private void insert(T key) {
         if (key == null) return;
-        BSTNode<T> node = new BSTNode<>(key, null, null, null);
+        BinarySearchTreeNode<T> node = new BinarySearchTreeNode<>(key, null, null, null);
         if (mRoot == null) {
             mRoot = node;
             return;
@@ -193,7 +193,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
 
-    private void insert(BSTNode<T> root, BSTNode<T> node) {
+    private void insert(BinarySearchTreeNode<T> root, BinarySearchTreeNode<T> node) {
         int i = node.key.compareTo(root.key);
         if (i < 0) {
             if (root.left == null) {
@@ -221,16 +221,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     private void delete(T key) {
         if (key == null) return;
-        BSTNode<T> node = recursiveSearch(key);
+        BinarySearchTreeNode<T> node = recursiveSearch(key);
         if (node == null) return;
         // node有两个子节点
         if (node.left != null && node.right != null) {
-            BSTNode<T> successor = successor(node);
+            BinarySearchTreeNode<T> successor = successor(node);
             node.key = successor.key;
             node = successor;
         }
         // node只有一个子节点或没有子节点
-        BSTNode<T> child;
+        BinarySearchTreeNode<T> child;
         if (node.right != null)
             child = node.right;
         else
@@ -256,7 +256,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      * @param node
      */
-    private void print(BSTNode<T> node) {
+    private void print(BinarySearchTreeNode<T> node) {
         if (node == null) return;
         if (node.parent == null) {
             System.out.printf("%2d is root\n", node.key);
