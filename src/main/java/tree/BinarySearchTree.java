@@ -3,7 +3,7 @@ package tree;
 /**
  * Created by qinbingbing on 20/11/2018.
  */
-public class BSTree<T extends Comparable<T>> {
+public class BinarySearchTree<T extends Comparable<T>> {
     private BSTNode<T> mRoot;
 
     public class BSTNode<T extends Comparable<T>> {
@@ -238,12 +238,33 @@ public class BSTree<T extends Comparable<T>> {
         node = null;
     }
 
+    // 打印
+    public void print() {
+        print(mRoot);
+    }
+
+    /**
+     *
+     * @param node
+     */
+    private void print(BSTNode<T> node) {
+        if (node == null) return;
+        if (node.parent == null) {
+            System.out.printf("%2d is root\n", node.key);
+        } else {
+            if (node.parent.left == node) {
+                System.out.printf("%2d is %2d's left child\n", node.key, node.parent.key);
+            } else {
+                System.out.printf("%2d is %2d's right child\n", node.key, node.parent.key);
+            }
+        }
+        print(node.left);
+        print(node.right);
+    }
+
     public static void main(String[] args) {
-        BSTree<Integer> bsTree = new BSTree<>();
-        bsTree.insert(13,5,15,9,18,2,7,6);
-        bsTree.inOrder();
-        System.out.println();
-        System.out.println(bsTree.min());
-        System.out.println(bsTree.max());
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        bst.insert(95,13,97,23,75,48,83,47,71,82);
+        bst.print();
     }
 }
