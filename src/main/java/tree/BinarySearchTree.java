@@ -271,6 +271,23 @@ public class BinarySearchTree<T extends Comparable<T>> {
         print(node.right);
     }
 
+    public void clear() {
+        clear(mRoot);
+        mRoot = null;
+    }
+
+    private void clear(BinarySearchTreeNode<T> node) {
+        if (node == null) return;
+        BinarySearchTreeNode<T> left = node.left;
+        BinarySearchTreeNode<T> right = node.right;
+        node.key = null;
+        node.parent = null;
+        node.left = null;
+        node.right = null;
+        clear(left);
+        clear(right);
+    }
+
     public static void main(String[] args) {
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
         bst.insert(95,13,97,23,75,48,83,47,71,82);
