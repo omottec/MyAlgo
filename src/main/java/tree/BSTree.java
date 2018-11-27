@@ -214,21 +214,28 @@ public class BSTree<T extends Comparable<T>> {
         if (key == null) return;
         BSTNode<T> node = search(key);
         if (node == null) return;
-        // node是叶节点
-        if (node.left == null && node.right == null) {
-            if (node.parent != null) {
-                if (node.parent.left == node) {
-                    node.parent.left = null;
-                } else {
-                    node.parent.right = null;
-                }
-                node.parent = null;
-            }
-            return;
-        }
-        // node只有一个子节点
-        
         // node有两个子节点
+        if (node.left != null && node.right != null) {
+            BSTNode<T> successor = successor(node);
+            node.key = successor.key;
+            node = successor;
+        }
+        // node只有一个子节点或没有子节点
+        BSTNode<T> child;
+        if (node.right != null)
+            child = node.right;
+        else
+            child = node.left;
+        if (child != null)
+            child.parent = node.parent;
+        if (node.parent == null)
+            mRoot = child;
+        else if (node.parent.left == node)
+            node.parent.left = child;
+        else
+            node.parent.right = child;
+        // 清除引用
+        node = null;
     }
 
     public static void main(String[] args) {
