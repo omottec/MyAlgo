@@ -91,21 +91,23 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return null;
     }
 
-    // 最大值
-    public T max() {
-        BSTNode<T> maxNode = max(mRoot);
-        if (maxNode != null)
-            return maxNode.key;
-        else
-            return null;
+    // 最大值: 递归
+    public T recursiveMax() {
+        BSTNode<T> maxNode = recursiveMax(mRoot);
+        return maxNode == null ? null : maxNode.key;
     }
 
-    private BSTNode<T> max(BSTNode<T> root) {
+    private BSTNode<T> recursiveMax(BSTNode<T> root) {
         if (root == null) return null;
         if (root.right != null)
-            return max(root.right);
+            return recursiveMax(root.right);
         else
             return root;
+    }
+
+    public T iterativeMax() {
+        BSTNode<T> maxNode = iterativeMax(mRoot);
+        return maxNode == null ? null : maxNode.key;
     }
 
     private BSTNode<T> iterativeMax(BSTNode<T> root) {
@@ -115,28 +117,38 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return root;
     }
 
-    // 最小值
-    public T min() {
-        BSTNode<T> minNode = min(mRoot);
-        if (minNode != null)
-            return minNode.key;
-        else
-            return null;
+    // 最小值: 递归
+    public T recursiveMin() {
+        BSTNode<T> minNode = recursiveMin(mRoot);
+        return minNode == null ? null : minNode.key;
     }
 
-    private BSTNode<T> min(BSTNode<T> root) {
+    private BSTNode<T> recursiveMin(BSTNode<T> root) {
         if (root == null) return null;
         if (root.left != null)
-            return min(root.left);
+            return recursiveMin(root.left);
         else
             return root;
+    }
+
+    // 最小值：迭代
+    public T iterativeMin() {
+        BSTNode<T> minNode = iterativeMin(mRoot);
+        return minNode == null ? null : minNode.key;
+    }
+
+    private BSTNode<T> iterativeMin(BSTNode<T> root) {
+        if (root == null) return null;
+        while (root.left != null)
+            root = root.left;
+        return root;
     }
 
     // 前驱节点：小于该节点的最大节点
     public BSTNode<T> predecessor(BSTNode<T> node) {
         if (node == null) return null;
         // tree有左节点，前驱节点为以左节点为根的子树的最大节点
-        if (node.left != null) return max(node.left);
+        if (node.left != null) return recursiveMax(node.left);
         // tree没有左节点，有两种可能
         // tree是左节点，则查找tree的最低父节点且该最低父节点要有右节点
         // tree是右节点，前驱节点是tree的父节点
@@ -152,7 +164,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public BSTNode<T> successor(BSTNode<T> node) {
         if (node == null) return null;
         // tree有右节点，后继节点为以右节点为子树的最小节点
-        if (node.right != null) return min(node.right);
+        if (node.right != null) return recursiveMin(node.right);
         // tree没有右节点，有两种可能
         // tree是左节点，后继节点是tree的父节点
         // tree是右节点，后继节点是tree的最低父节点且该最低父节点有左节点
