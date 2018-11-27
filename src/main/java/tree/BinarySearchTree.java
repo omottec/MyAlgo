@@ -57,17 +57,17 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     // 递归查找
-    public BSTNode<T> search(T key) {
+    public BSTNode<T> recursiveSearch(T key) {
         if (key == null || mRoot == null) return null;
-        return search(mRoot, key);
+        return recursiveSearch(mRoot, key);
     }
 
-    private BSTNode<T> search(BSTNode<T> root, T key) {
+    private BSTNode<T> recursiveSearch(BSTNode<T> root, T key) {
         int i = key.compareTo(root.key);
         if (i < 0)
-            return search(root.left, key);
+            return recursiveSearch(root.left, key);
         else if (i > 0)
-            return search(root.right, key);
+            return recursiveSearch(root.right, key);
         else
             return root;
     }
@@ -209,7 +209,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     private void delete(T key) {
         if (key == null) return;
-        BSTNode<T> node = search(key);
+        BSTNode<T> node = recursiveSearch(key);
         if (node == null) return;
         // node有两个子节点
         if (node.left != null && node.right != null) {
