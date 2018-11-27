@@ -26,11 +26,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     private void preOrder(BSTNode<T> root) {
-        if (root != null) {
-            System.out.print(root.key + " ");
-            preOrder(root.left);
-            preOrder(root.right);
-        }
+        if (root == null) return;
+        System.out.print(root.key + " ");
+        preOrder(root.left);
+        preOrder(root.right);
     }
 
     // 中序遍历：左父右
@@ -39,11 +38,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     private void inOrder(BSTNode<T> root) {
-        if (root != null) {
-            inOrder(root.left);
-            System.out.print(root.key + " ");
-            inOrder(root.right);
-        }
+        if (root == null) return;
+        inOrder(root.left);
+        System.out.print(root.key + " ");
+        inOrder(root.right);
     }
 
     // 后序遍历：左右父
@@ -52,11 +50,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     private void postOrder(BSTNode<T> root) {
-        if (root != null) {
-            postOrder(root.left);
-            postOrder(root.right);
-            System.out.print(root.key + " ");
-        }
+        if (root == null) return;
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.key + " ");
     }
 
     // 递归查找
