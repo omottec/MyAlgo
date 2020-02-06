@@ -1,6 +1,5 @@
 package tree;
 
-import java.util.Deque;
 import java.util.LinkedList;
 
 /**
@@ -8,26 +7,32 @@ import java.util.LinkedList;
  */
 public class BinaryTreeTest {
     public static void main(String[] args) {
-        Node<String> a = new Node<>();
-        a.t = "A";
-        Node<String> b = new Node<>();
-        b.t = "B";
-        Node<String> c = new Node<>();
-        c.t = "C";
+        Node<String> a = new Node<>("A");
+        Node<String> b = new Node<>("B");
+        Node<String> c = new Node<>("C");
         a.left = b;
         a.right = c;
-        Node<String> d = new Node<>();
-        d.t = "D";
-        Node<String> e = new Node<>();
-        e.t = "E";
-        Node<String> f = new Node<>();
-        f.t = "F";
-        Node<String> g = new Node<>();
-        g.t = "G";
+        Node<String> d = new Node<>("D");
+        Node<String> e = new Node<>("E");
+        Node<String> f = new Node<>("F");
+        Node<String> g = new Node<>("G");
         b.left = d;
         b.right = e;
         c.left = f;
         c.right = g;
+        Node<String> h = new Node<>("H");
+        Node<String> i = new Node<>("I");
+        Node<String> j = new Node<>("J");
+        Node<String> k = new Node<>("K");
+        Node<String> l = new Node<>("L");
+        Node<String> m = new Node<>("M");
+        d.left = h;
+        d.right = i;
+        e.left = j;
+        f.right = k;
+        g.left = l;
+        g.right = m;
+
         System.out.println("traverseWidth");
         traverseWidth(a);
         System.out.println("\ntraverseDepth");
@@ -39,29 +44,40 @@ public class BinaryTreeTest {
         public Node<T> left;
         public Node<T> right;
 
+        public Node() {
+        }
+
+        public Node(T t) {
+            this.t = t;
+        }
+
         @Override
         public String toString() {
             return t.toString();
         }
     }
 
+    // A B C D E F G H I J K L M
     public static <T> void traverseWidth(Node<T> root) {
-        LinkedList<Node<T>> list = new LinkedList<>();
-        list.offerFirst(root);
-        while (!list.isEmpty()) {
-            Node<T> tmp = list.pollLast();
-            System.out.print(tmp.t + " ");
+        if (root == null) return;
+        LinkedList<Node<T>> queue = new LinkedList<>();
+        // add remove get vs offer poll peek
+        queue.offerFirst(root);
+        while (!queue.isEmpty()) {
+            Node<T> tmp = queue.pollLast();
+            System.out.print(tmp + " ");
             if (tmp.left != null)
-                list.offerFirst(tmp.left);
+                queue.offerFirst(tmp.left);
             if (tmp.right != null)
-                list.offerFirst(tmp.right);
+                queue.offerFirst(tmp.right);
         }
     }
 
+    // A B D H I E J C F K G L M
     public static <T> void traverseDepth(Node<T> root) {
         if (root == null) return;
-        System.out.print(root.t + " ");
-        traverseWidth(root.left);
-        traverseWidth(root.right);
+        System.out.print(root + " ");
+        traverseDepth(root.left);
+        traverseDepth(root.right);
     }
 }
