@@ -1,6 +1,8 @@
 package tree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by omottec on 06/02/2020.
@@ -33,10 +35,14 @@ public class BinaryTreeTest {
         g.left = l;
         g.right = m;
 
-        System.out.println("traverseWidth");
-        traverseWidth(a);
-        System.out.println("\ntraverseDepth");
-        traverseDepth(a);
+        System.out.println("traverseWidthWithQueue");
+        traverseWidthWithQueue(a);
+        System.out.println("\ntraverseWidthWithQueue");
+        traverseDepthWithQueue(a);
+        System.out.println("\ntraverseWidthWithArray");
+        traverseWidthWithArray(a);
+        System.out.println("\ntraverseDepthWithRecursive");
+        traverseDepthWithRecursive(a);
     }
 
     public static class Node<T> {
@@ -58,12 +64,12 @@ public class BinaryTreeTest {
     }
 
     // A B C D E F G H I J K L M
-    public static <T> void traverseWidth(Node<T> root) {
+    public static <T> void traverseWidthWithQueue(Node<T> root) {
         if (root == null) return;
         LinkedList<Node<T>> queue = new LinkedList<>();
         // add remove get vs offer poll peek
         queue.offerFirst(root);
-        while (!queue.isEmpty()) {
+        while (queue.size() > 0) {
             Node<T> tmp = queue.pollLast();
             System.out.print(tmp + " ");
             if (tmp.left != null)
@@ -73,11 +79,41 @@ public class BinaryTreeTest {
         }
     }
 
+    public static <T> void traverseDepthWithQueue(Node<T> root) {
+        if (root == null) return;
+        LinkedList<Node<T>> deque = new LinkedList<>();
+        deque.offerLast(root);
+        while (deque.size() > 0) {
+            Node<T> tmp = deque.pollLast();
+            System.out.print(tmp + " ");
+            if (tmp.right != null)
+                deque.offerLast(tmp.right);
+            if (tmp.left != null)
+                deque.offerLast(tmp.left);
+        }
+    }
+
+    public static <T> void traverseWidthWithArray(Node<T>... nodes) {
+        if (nodes == null || nodes.length == 0) return;
+        for (Node<T> node : nodes)
+            System.out.print(node + " ");
+        System.out.println("\n====================");
+        List<Node<T>> list = new ArrayList<>();
+        for (Node<T> node : nodes) {
+            if (node == null) continue;
+            if (node.left != null)
+                list.add(node.left);
+            if (node.right != null)
+                list.add(node.right);
+        }
+        traverseWidthWithArray(list.toArray(new Node[list.size()]));
+    }
+
     // A B D H I E J C F K G L M
-    public static <T> void traverseDepth(Node<T> root) {
+    public static <T> void traverseDepthWithRecursive(Node<T> root) {
         if (root == null) return;
         System.out.print(root + " ");
-        traverseDepth(root.left);
-        traverseDepth(root.right);
+        traverseDepthWithRecursive(root.left);
+        traverseDepthWithRecursive(root.right);
     }
 }
