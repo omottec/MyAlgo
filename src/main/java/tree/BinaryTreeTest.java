@@ -64,6 +64,7 @@ public class BinaryTreeTest {
     }
 
     // A B C D E F G H I J K L M
+    // // 深度遍历offer和pull都操作两端
     public static <T> void traverseWidthWithQueue(Node<T> root) {
         if (root == null) return;
         LinkedList<Node<T>> queue = new LinkedList<>();
@@ -79,6 +80,7 @@ public class BinaryTreeTest {
         }
     }
 
+    // 深度遍历offer和pull都操作同一端
     public static <T> void traverseDepthWithQueue(Node<T> root) {
         if (root == null) return;
         LinkedList<Node<T>> deque = new LinkedList<>();
